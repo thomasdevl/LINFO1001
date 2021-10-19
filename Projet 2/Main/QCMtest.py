@@ -6,6 +6,7 @@ if __name__ == '__main__':
     choix = []
     score = 0
     nmbr_de_questions = 0
+    list_nmbr_choix= []
     
     # Chargement du questionnaire
     questions = qcm.build_questionnaire(filename)
@@ -34,7 +35,10 @@ if __name__ == '__main__':
                     print(f"\t\t\t'{user_input}' n'est pas une réponse valide")    
             else:
                 print(f"\t\t\t'{user_input}' n'est pas un numéro")
-                
+
+        list_nmbr_choix.append(nmbr_de_choix)
+
+           
     #print(choix)
                 
     #Choix de la cotation
@@ -42,7 +46,7 @@ if __name__ == '__main__':
 \t\t\t Type de cotation:
 \t\t\t (1) +1 -0
 \t\t\t (2) +1 -1
-\t\t\t (3) indeterminé
+\t\t\t (3) +1 -1/par le nombre de question fausse
 ''')
     
     while True:
@@ -81,6 +85,12 @@ if __name__ == '__main__':
 
     #troisième système de cotation
     elif int(cotation) == 3:
-        print("en cours...")
+        for z in range(len(choix)):  
+            if questions[z][1][(int(choix[z])-1)][1]:
+                score = score + 1
+            else:
+                #  - 1/ par le nombre de question fausse 
+                score = score - (1/(list_nmbr_choix[z]-1))
+        print(f"\t\t\t Score de {round(score,1)}/{nmbr_de_questions}")
             
            
