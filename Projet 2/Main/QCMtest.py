@@ -47,50 +47,68 @@ if __name__ == '__main__':
 \t\t\t (1) +1 -0
 \t\t\t (2) +1 -1
 \t\t\t (3) +1 -1/par le nombre de question fausse
+\t\t\t 
+\t\t\t Pour choisir plusieurs type de cotation vous pouvez
+\t\t\t mettre plusieurs numéros (ex: 123 , 23 , 13) dans l'ordre
 ''')
+
+    list_choix_cotation = ["1","2","3","12","13","21","23","123"]
     
     while True:
         cotation = input("\t\t\t Choix:")
         if cotation.isnumeric(): #regarde si un numéro 
-            if int(cotation) < 4: #regarde si dans les bornes  
+            if cotation in list_choix_cotation: #regarde si dans les bornes  
                 break  
             else:
                 print(f"\t\t\t'{user_input}' n'est pas une réponse valide")    
         else:
             print(f"\t\t\t'{user_input}' n'est pas un numéro")
         
-
+    
 
         
     #vérification des réponses
 
     #Premier système de cotation
-    if int(cotation) == 1:
+    def cotation1(choix,questions,score):
         for z in range(len(choix)):
                 
             if questions[z][1][(int(choix[z])-1)][1]:
                     
                 score = score + 1
                                
-        print(f"\t\t\t Score de {score}/{nmbr_de_questions}")
+        return(f"\t\t\t (1) Score de {score}/{nmbr_de_questions}")
 
-    #deuxième système de cotation   
-    elif int(cotation) == 2:
+    #deuxième système de cotation     
+    def cotation2(choix,questions,score):
         for z in range(len(choix)):  
             if questions[z][1][(int(choix[z])-1)][1]:
                 score = score + 1
             else:
                 score = score - 1     
-        print(f"\t\t\t Score de {score}/{nmbr_de_questions}")
+        return(f"\t\t\t (2) Score de {score}/{nmbr_de_questions}")
 
     #troisième système de cotation
-    elif int(cotation) == 3:
+    def cotation3(choix,questions,score,list_nmbr_choix):
         for z in range(len(choix)):  
             if questions[z][1][(int(choix[z])-1)][1]:
                 score = score + 1
             else:
                 #  - 1/ par le nombre de question fausse 
                 score = score - (1/(list_nmbr_choix[z]-1))
-        print(f"\t\t\t Score de {round(score,1)}/{nmbr_de_questions}")
+        return(f"\t\t\t (3) Score de {round(score,1)}/{nmbr_de_questions}")
+
+
+    #Choix du type de cotation
+    if "1" in cotation:
+        print(cotation1(choix,questions,score))
+
+      
+    if "2" in cotation:
+        print(cotation2(choix,questions,score))
+
+    
+    if "3" in cotation:
+        print(cotation3(choix,questions,score,list_nmbr_choix))
             
            
