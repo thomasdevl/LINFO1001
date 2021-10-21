@@ -49,10 +49,12 @@ if __name__ == '__main__':
 \t\t\t (3) +1 -1/par le nombre de question fausse
 \t\t\t 
 \t\t\t Pour choisir plusieurs type de cotation vous pouvez
-\t\t\t mettre plusieurs numéros (ex: 123 , 23 , 13) dans l'ordre
+\t\t\t mettre plusieurs numéros (ex: 123 , 32 , 13) 
 ''')
 
-    list_choix_cotation = ["1","2","3","12","13","21","23","123"]
+    list_choix_cotation = ["1","2","3"
+                           ,"12","13","21","23","31","32"
+                           ,"123","132","213","231","312","321"]
     
     while True:
         cotation = input("\t\t\t Choix:")
@@ -103,10 +105,8 @@ if __name__ == '__main__':
     if "1" in cotation:
         print(cotation1(choix,questions,score))
 
-      
     if "2" in cotation:
         print(cotation2(choix,questions,score))
-
     
     if "3" in cotation:
         print(cotation3(choix,questions,score,list_nmbr_choix))
