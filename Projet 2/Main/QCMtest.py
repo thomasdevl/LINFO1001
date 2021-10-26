@@ -4,8 +4,7 @@ if __name__ == '__main__':
     
 
     def quiz(qcm):
-        filename = '/Users/thomasdevlamminck/Documents/UNIF/Project en info /Projet 2/LibrairieLectureFichierQCM/Main/QCM2.txt'
-        #filename = 'QCM2.txt'
+        filename = 'QCM2.txt'
 
         choix = []
         score = 0
