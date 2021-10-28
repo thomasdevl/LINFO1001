@@ -4,7 +4,8 @@ if __name__ == '__main__':
     
 
     def quiz(qcm):
-        filename = 'QCM2.txt'
+        filename = '/Users/thomasdevlamminck/Documents/UNIF/Project en info /Projet 2/LibrairieLectureFichierQCM/Main/QCM2.txt'
+        #filename = 'QCM2.txt'
 
         choix = []
         score = 0
@@ -71,7 +72,7 @@ if __name__ == '__main__':
 \t\t\t
 \t\t\t (1) +1 -0
 \t\t\t (2) +1 -1
-\t\t\t (3) +1 -1/par le nombre de question fausse
+\t\t\t (3) +1 -0.5 (si score négatif ->0)
 \t\t\t 
 \t\t\t Pour choisir plusieurs type de cotation vous pouvez
 \t\t\t mettre plusieurs numéros (ex: 1-2-3 , 3-2 , 1-3) 
@@ -102,8 +103,6 @@ if __name__ == '__main__':
             if is_correct:
                 break
                 
-        
-        #print(list_nmbr_choix)
             
         #vérification des réponses
 
@@ -123,8 +122,6 @@ if __name__ == '__main__':
                     if questions[z][1][right][1]:
                         count_right = count_right + 1
 
-            
-
                 #compteur du nombre de réponse correct donné par l'utilisateur
                 for a in choix[z]:
                     if questions[z][1][(a-1)][1]:
@@ -133,7 +130,6 @@ if __name__ == '__main__':
                         good = False
                         break
             
-
                 #le nombre de rep correct et le nombre de rep correct donné
                 # par l'utilisateur doivent être les mêmes pour recevoir le point
                 if rep_correct == count_right and good == True:
@@ -183,14 +179,42 @@ if __name__ == '__main__':
         
         #troisième système de cotation
         def cotation3(choix,questions,score,list_nmbr_choix):
-            for z in range(len(choix)):  
-                if questions[z][1][(int(choix[z])-1)][1]:
-                    score = score + 1
-                else:
-                    #  - 1/ par le nombre de question fausse 
-                    score = score - (1/(list_nmbr_choix[z]-1))
-            return(f"\t\t\t (3) Score de {round(score,1)}/{nmbr_de_questions}")
 
+            for z in range(len(choix)):
+
+                rep_correct = 0
+                count_right = 0
+
+                good = True
+
+                #compteur de réponse correct a la question
+                for right in range(int(list_nmbr_choix[z])):
+                    if questions[z][1][right][1]:
+                        count_right = count_right + 1
+
+            
+
+                #compteur du nombre de réponse correct donné par l'utilisateur
+                for a in choix[z]:
+                    if questions[z][1][(a-1)][1]:
+                        rep_correct = rep_correct + 1
+                    else:   
+                        good = False
+                        break
+            
+
+                #le nombre de rep correct et le nombre de rep correct donné
+                # par l'utilisateur doivent être les mêmes pour recevoir le point
+                if rep_correct == count_right and good == True:
+                    score = score + 1
+                    
+                else:#si un des choix est faux pas de changement de score
+                    score = score - 0.5
+
+            if score > 0:                                    
+                return(f"\t\t\t (3) Score de {score}/{nmbr_de_questions}")
+            else:
+                return(f"\t\t\t (3) Score de 0/{nmbr_de_questions}")
 
         #Choix du type de cotation
         if "1" in cotation:
@@ -259,7 +283,10 @@ if __name__ == '__main__':
 \t\t\t +1 Pour une bonne réponse
 \t\t\t -1 si pas toutes les bonnes réponses sont choisient ou si il y a un choix faux
 \t\t\t 
-\t\t\t (3) en cours.....
+\t\t\t (3) +1 -0.5 (cotation intermédiaire) 
+\t\t\t +1 Pour une bonne réponse
+\t\t\t -0.5 si pas toutes les bonnes réponses sont choisient ou si il y a un choix faux
+\t\t\t Attention : si score négatif la note de 0 sera attribuée
 \t\t\t 
 \t\t\t Pour choisir plusieurs type de cotation vous pouvez
 \t\t\t mettre plusieurs numéros (ex: 1-2-3 , 3-2 , 1-3) 
